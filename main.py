@@ -4,7 +4,7 @@
 # BASIC UI COMPONENTS ADDED
 # FORMATTING PENDING
 # Check real time
-
+# how to catch OSError
 from bluetooth import BluetoothSocket, RFCOMM, PORT_ANY, SERIAL_PORT_CLASS, SERIAL_PORT_PROFILE, advertise_service
 from pykeyboard import PyKeyboard
 from time import sleep
@@ -142,7 +142,10 @@ class BtServer(object):
 
     def close_socket(self):
         self.client['socket'] = ""
-        self.kill()
+        try:
+            self.kill()
+        except OSError as e:
+            pass
         
 
 
@@ -214,11 +217,16 @@ def startApp():
 
 def stopApp():
     global S
-    S.close_socket()
+    try:
+        S.close_socket()
+    except OSError as e:
+        print("Caught")
+
 
 if __name__ == '__main__':
     
     app = gui(None)
     app.title('REWAVE SERVER')
+    app.iconbitmap('ic_launcher.ico')
     app.mainloop()
     #main()
