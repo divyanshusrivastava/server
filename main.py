@@ -1,17 +1,10 @@
 #! /usr/bin/python3
 
-## COMMENTS BY DIVYANSHU
-# BASIC UI COMPONENTS ADDED
-# FORMATTING PENDING
-# Check real time
-# how to catch OSError
 from bluetooth import BluetoothSocket, RFCOMM, PORT_ANY, SERIAL_PORT_CLASS, SERIAL_PORT_PROFILE, advertise_service
 from pykeyboard import PyKeyboard
 from time import sleep
 import tkinter
 import threading
-
-
 
 class gui(tkinter.Tk):
     def __init__(self,parent):
@@ -190,22 +183,18 @@ def startApp():
     S = BtServer()
     S.start()
 
-
     while True:
         try:
             data = S.client['socket'].recv(2048).decode(encoding='UTF-8')
-
             if data == "exit":
                 S.close_connection()
                 break
-
             try:
                 # NO KEY-TAPPING RIGHT NOW
                 # k.tap_key(key_bindings[data])
                 gui.printData(data)
             except KeyError:
                 pass
-
             print(data)
             sleep(0.0006)
 
@@ -230,3 +219,10 @@ if __name__ == '__main__':
     app.iconbitmap('ic_launcher.ico')
     app.mainloop()
     #main()
+
+
+## COMMENTS BY DIVYANSHU
+# BASIC UI COMPONENTS ADDED
+# FORMATTING PENDING
+# Check real time
+# how to catch OSError
